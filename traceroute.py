@@ -28,10 +28,15 @@ class Traceroute(object):
         super(Traceroute, self).__init__()
         self.ip_address = ip_address
         self.source = source
+        #print "Source is", self.source
         if self.source is None:
-            json_file = open("sources.json", "r").read()
-            sources = json.loads(json_file.replace("_IP_ADDRESS_", ip_address))
-            self.source = sources[country]
+            self.source = "sources.json"
+
+        #print "Opening stuff"
+        json_file = open(self.source, "r").read()
+        sources = json.loads(json_file.replace("_IP_ADDRESS_", ip_address))
+
+        self.source = sources[country]
         self.country = country
         self.tmp_dir = tmp_dir
         self.no_geo = no_geo
